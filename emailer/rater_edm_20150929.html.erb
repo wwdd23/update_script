@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= @title %></title>
+</head>
+<body>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    img {
+      border: 0;
+    }
+    a {
+      text-decoration: none;
+    }
+    a:focus, a:active {
+      outline: 0;
+    }
+    .mail-page {
+      width: 100%;
+      height: 100%;
+      font-size: 10px;
+      font-family: Arial;
+      background: #f2f2f2;
+      color: #868686;
+      padding: 4em 0;
+    }
+    .rater-edm-page {
+      width: 640px;
+      margin: 0 auto;
+      background-color: #fff;
+      border: thin solid #cecece;
+    }
+    .rater-edm-page .rrpage__header {
+      position: relative;
+      width: 100%;
+    }
+    .rater-edm-page .rrpage__desc {
+      font-size: 14px;
+      line-height: 24px;
+      color: #868686;
+      text-align: left;
+      margin: 0 auto;
+      width:480px;
+    }
+    .rater-edm-page .rrpage__desc .rrpage__h1{
+      font-size: 18px;
+      line-height: 24px;
+      color: #272727;
+      text-align: left;
+      margin-top: 36px;
+      margin-bottom: 8px;
+      width:480px;
+
+    }
+    .rater-edm-page .rrpage__h2{
+      font-size: 16px;
+      line-height: 24px;
+      color: #272727;
+      text-align: left;
+      margin-top: 20px;
+      width:480px;
+
+    }
+    .rater-edm-page  .rrpage__h3{
+      font-size: 16px;
+      line-height: 24px;
+      color: #272727;
+      text-align: left;
+      margin-top: 15px;
+      width:480px;
+
+    }
+    .rater-edm-page .rrpage__desc-head{
+      margin-top: 36px;
+      margin-bottom: 36px;
+    }
+    .rater-edm-page .rrpage__desc-mid{
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+    .rater-edm-page .rrpage__desc-foot{
+      margin-top: 20px;
+    }
+    .rater-edm-page .rrpage__pic{
+      margin: 0px 40px 20px;
+      text-align: left;
+    }
+    .rater-edm-page .rrpage__pic-desc{
+      font-size: 12px;
+      line-height: 15px;
+      color: #9b9b9b;
+      text-align: left;
+      margin-top: 15px;
+    }
+    .rater-edm-page .rrpage__qcode{
+      margin: 20px 40px 10px;
+      text-align: left;
+    }
+    .rater-edm-page .rrpage__hunter{
+      margin: 0px 10px 15px;
+      float: none;
+    }
+    .rater-edm-page .rrage__pic .rrpage__guwen {
+      position: absolute;
+      left: 40px;
+      bottom: 60px;
+      text-decoration: none;
+    }
+    .rater-edm-page .rrage_pic .rrpage__weibo {
+      text-decoration: none;
+    }
+    .rater-edm-page .rrpage__title{
+      margin: 1em 0 0 0;
+      text-align: center;
+      font-size: 2rem;
+      color: #000;
+    }
+    .rater-edm-page .rrpage__more {
+      margin: 0px auto;
+      border-radius: .3em;
+      width: 360px;
+      text-align: center;
+      position: relative;
+    }
+    .rater-edm-page .rrpage__more-btn {
+      width: 150px;
+      height: 36px;
+    }
+    .rater-edm-page .rrpage__section {
+      margin: 0 2em;
+    }
+    .rater-edm-page .rrpage__about {
+      width: 100%;
+      background-color: #FFFFFF;
+      color: #d7d7d7;
+      text-align: center;
+      line-height: 24px;
+      height: 32px;
+    }
+    .rater-edm-page .rrpage__focus-us {
+      width: 100%;
+      background-color: #FFFFFF;
+      text-align: left;
+      margin: 20px 40px 20px ;
+    }
+    .rater-edm-page-header .rrpheader__banner {
+      width: 100%;
+    }
+    .rater-edm-page-section .rrpsection__title {
+      text-align: center;
+      font-size: 3em;
+      margin: 1em 0;
+      color: #000;
+    }
+    .rater-edm-page-section .rrpsection__item {
+      position: relative;
+    }
+    .rater-edm-page-section .rrpsection__item img {
+      width: 100%;
+    }
+    .rater-edm-page-section .rrpsection__description {
+      margin-top: 3em;
+      text-align: center;
+    }
+    .rater-edm-page-section .rrpsection__description li {
+      list-style: none;
+      font-size: 1.1rem;
+      line-height: 2.2rem;
+    }
+    .triple-columns {
+      clear: both;
+      content: "";
+      display: table;
+      width: 100%;
+    }
+    .triple-columns .tcolumns__item {
+      float: left;
+      margin: 0px 0px 20px 90px;
+    }
+    .triple-columns .tcolumns__item.tcolumns__itemi--second {
+      margin: 0px 10px 15px ;
+      float: left;
+    }
+    .triple-columns .tcolumns__item.tcolumns__itemi--thrid{
+      margin: 0px 0px 0px 360px ;
+      float: left;
+    }
+    .triple-columns .tcolumns__item.tcolumns__item--last {
+      float: bottom;
+      margin: 15px 0px 0px 360px ;
+    }
+    .cutting-line {
+      border-top: 1px solid #d7d7d7;
+      margin: 36px auto 20px auto;
+      width: 500px;
+    }
+  </style>
+  <div class="mail-page">
+    <div class='rater-edm-page'>
+      <div class="rrpage__desc rrpage__desc-head " >
+        <p class="rrpage__header ">还会来2016年感恩真情相伴</p>
+        <p class="rrpage__h2 ">年底大丰收，好礼 “双响炮”</p>
+        <p class="rrpage__h3">尊敬客户您好!</p>
+        <p class="rrpage__h3">还会来年底感恩真情回馈活动将于2016年12月正式上线。还会来感谢您一路风雨陪伴，真情相随。现借年终岁尾，辞旧迎新之际，推出2016年12月多重好礼回馈活动，真心感恩新老朋友们。数量有限，先到先得！</p>
+      </div>
+
+      <div class="rrpage__more">
+        <a class="rrpage__more-link" href="http://www.fishtrip.cn/orders/my?&td_source=mail&td_medium=rate_20151016" target="_blank">
+          <%= image_tag attachments['edm_btn_comment.png'].url, class: "rrpage__more-btn" %>
+        </a>
+      </div>
+
+
+      <div class="cutting-line"></div>
+
+      <div class="rater-edm-page-section__content triple-columns">
+        <div class="rater-edm-page-section_item tcolumns__item">
+            <img src="<%= attachments['edm_qrcode1.png'].url %>" >
+        </div>
+        <div class="rater-edm-page-section_item tcolumns__item tcolumns__item--second" style="margin:0px 0px 15px 10px">
+          <img src="<%= attachments['1.png'].url %>" >
+          <p class='rrpage_hunter rrpage__pic-desc'>
+          扫描下载大鱼App<br>
+          首单减20元
+          </p>
+        </div>
+        <div class="rrpage__guwen rater-edm-page-section_item tcolumns__item--third " style="margin:0px 0px 0px 360px">
+          <a href="http://www.fishtrip.cn/wechat" target="_blank">
+            <img src="<%= attachments['4.png'].url %>">
+          </a>
+        </div>
+        <div class="rrpage__weibo rater-edm-page-section_item tcolumns__item--last" style="margin:15px 0px 0px 360px">
+          <a href="http://weibo.com/fishtripcn" target="_blank">
+            <img src="<%= attachments['dayuweibo.png'].url %>">
+          </a>
+        </div>
+      </div>
+
+
+      <div class="rrpage__about">
+        Copyright © fishtrip.cn 2015 All Rights Reserved
+      </div>
+    </div>
+  </div>
+</body>
+</html>
