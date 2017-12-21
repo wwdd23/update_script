@@ -53,3 +53,46 @@ Booking.where(:type => "接机",:paid_at.ne => nil).each do |n|
   out << [n.booking_param, n.start_date.to_date, n.memo]
 
 end
+
+
+
+## 保险订单推送率统计
+#
+
+
+out_ratio = [["时间", "应推订单量", "已推订单量", "推送率"]]
+out =[["单号", "下单时间", "支付时间", "类型", "出行时间", "结束时间", 
+       "出行人数", "国家", "城市", "订单状态", ]]
+insure_info = [["创建时间", "保险单号", "订单ID", "订单号", "是否测试单"]]
+(Time.parse("2017-11-28").to_date..Time.now.tomorrow.to_date).each do |d|
+  #end_day = Time.now.to_date.to_s
+  end_day = d.to_s
+  span = Time.parse(end_day).yesterday..Time.parse(end_day)
+  base = Booking.where(:paid_at => span)
+
+  insures = InsureLog.where(:created_at => span)
+
+  base.each do |n|
+    out << [n.booking_param, n.created_at.to_date, n.paid_at.to_date, 
+            n.type, n.from_date, n.to_date, n.people_num, n.from_country,
+            n.from_city, n.status]
+  end
+
+
+  insures.each do |n|
+
+    order = n.booking
+    is_test = order.present? ? "否" : "是"
+    insure_info << [n.created_at.to_date, n.insure_id, n.booking_id, order.try(:booking_param), is_test]
+
+  end
+
+
+  ## 保险推送率
+
+  ratio = Storage::Base.get_ratio(insures.count, base.count)
+  out_ratio << [span.first.to_time.to_date.to_s, base.count, insures.count, "#{ratio}%"]
+
+end
+
+Emailer.send_custom_file(['wudi@haihuilai.com'],  "每日推送率信息", XlsGen.gen(insure_info, out_ratio, out), "每日推送率信息.xls" ).deliver

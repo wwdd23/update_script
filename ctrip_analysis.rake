@@ -135,9 +135,9 @@ r_all = [["城市", "请求量", "抓取量", "真访问数量", "下单订单�
 citys.each do |n|
   logs = CtripLog.where(:created_at => span, :city_name => n)
   ctrip_city = all_ids.select{|m| m[1] == n}.first
-  spiders = CtripSpider.where(:created_at => span, "res.CityID" => ctrip_city[0])
+  spider_info = CtripSpider.where(:created_at => span, "res.CityID" => ctrip_city[0])
   logs_count = logs.count
-  spiders = spiders.count
+  spiders_count = spider_info.count
 
   city_booking = Booking.where(:created_at => span,:consumer_company => "携程API采购账号", :cancel_memo.ne => "测试取消订单",:from_city => n )
   city_booking_count = city_booking.count
@@ -161,4 +161,4 @@ end
 
 
 
-Emailer.send_custom_file(['wudi@haihuilai.com'],  "携程统计数据", XlsGen.gen(r, r_all), "携程统计数据.xls" ).deliver_now
+:mailer.send_custom_file(['wudi@haihuilai.com'],  "携程统计数据", XlsGen.gen(r, r_all), "携程统计数据.xls" ).deliver_now

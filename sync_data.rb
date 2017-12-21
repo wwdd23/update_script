@@ -41,12 +41,14 @@ end
 
   start_day = n.to_s
   end_day = n.next_day.to_s
-  Supplier.sync({:start_day => start_day,:end_day => end_day})
-  Consumer.sync({:start_day => start_day,:end_day => end_day, :sync_type => "created_at"})
+  #Supplier.sync({:start_day => start_day,:end_day => end_day})
+  #Consumer.sync({:start_day => start_day,:end_day => end_day, :sync_type => "created_at"})
+  Booking.sync({:start_day => start_day,:end_day => end_day, :sync_type => "created_at"})
+  #Traveller.sync({:start_day => start_day,:end_day => end_day})
 end 
 
-("2017-10-24".to_date.."2017-10-30".to_date).each do |n|
+(Time.parse("2017-11-28").to_date..Time.now.to_date).each do |n|
 
-  CtripLog.synclog(n.to_s)
-
-end
+  start_day = n.to_s
+  InsureLog.synclog(start_day)
+end 
