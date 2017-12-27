@@ -28,11 +28,11 @@ end
 end
 
 
-(Time.parse("2017-03-14").to_date..Time.parse("2017-03-16").to_date).each do |n|
+(Time.parse("2017-08-14").to_date..Time.parse("2017-10-14").to_date).each do |n|
 
   date = n.to_s
 
-  SmsLog.sync({:date => date})
+  SearchLog.search(n.strftime("%Y%m%d"))
 
 end
 
@@ -41,9 +41,10 @@ end
 
   start_day = n.to_s
   end_day = n.next_day.to_s
-  #Supplier.sync({:start_day => start_day,:end_day => end_day})
+  p end_day
+  Supplier.sync({:start_day => start_day,:end_day => end_day, :sync_type => "created_at"})
   #Consumer.sync({:start_day => start_day,:end_day => end_day, :sync_type => "created_at"})
-  Booking.sync({:start_day => start_day,:end_day => end_day, :sync_type => "created_at"})
+  #Booking.sync({:start_day => start_day,:end_day => end_day, :sync_type => "created_at"})
   #Traveller.sync({:start_day => start_day,:end_day => end_day})
 end 
 

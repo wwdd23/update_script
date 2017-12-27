@@ -131,6 +131,8 @@ span.each do |date|
 end
 
 # 汇总近几日所有数据信息
+span = Time.parse("2017-12-15").to_date..Time.parse("2017-12-21").to_date
+
 r_all = [["城市", "请求量", "抓取量", "真访问数量", "下单订单量", "成单量", "退单量", "下单转化率", "成单转化率"]]
 citys.each do |n|
   logs = CtripLog.where(:created_at => span, :city_name => n)
@@ -162,3 +164,49 @@ end
 
 
 :mailer.send_custom_file(['wudi@haihuilai.com'],  "携程统计数据", XlsGen.gen(r, r_all), "携程统计数据.xls" ).deliver_now
+
+
+
+
+### 近期 携程查询下单日期统计
+span = Time.parse("2017-12-14").to_date..Time.now.to_date
+logs = CtripLog.where(:created_at => span)
+
+send = [["访问时间", "携程ID", "城市名称", "出行时间"]]
+logs.each do |n|
+  send <<  [n.created_at.to_date, n.city_id, n.city_name, n.from_date.to_date]
+end
+
+Emailer.send_custom_file(['wudi@haihuilai.com'],  "访问统计", XlsGen.gen(send), "携程访问统计.xls" ).deliver_now
+
+
+
+# 携程为去重原始访问信息基本数据
+#
+send = [["请求日期", "城市ID", "出行时间", "行程天数", 
+         "行程信息", "行程", "出发城市", "到达城市", "使用类型", "距离", "时长",]]
+
+info.each_line do |n|
+
+  time = n.match(/\[(.*-.*-.* *:*:*)\] \[/)[1]
+
+  res = n.match(/analysis_spider:({.*})/)[1]
+
+  r = JSON.parse(res)
+
+  
+  date = r["UseDate"]
+  duration = r["UseDuration"]
+  s_info = r["ScheduleList"]
+
+  #s = [[ ]]
+  s = [time, r["UseDate"], r["CityID"], r["UseDuration"], ""]
+
+  tmp = []
+  s_info.each do |x|
+    s.concat([x["Days"], x["DepartCityName"], x["ArriveCityName"], x["UseType"], x["DistanceLength"], x["TimeLength"]])
+  end
+  
+  send << s
+
+end
