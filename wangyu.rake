@@ -5,3 +5,9 @@ s = Booking.where(:booking_param.in => ids).map(&:company_profit).reduce(:+)
 t = Booking.where(:booking_param.in => ids).map(&:total_rmb).reduce(:+)
 
 
+
+# 获取符合操作订单
+#
+all_booking = Booking.where(:paid_at.gte => Time.parse("2017-12-01"), :to_date => span, :status => "订单完成" )
+
+booking_ids = all_booking.map("")
